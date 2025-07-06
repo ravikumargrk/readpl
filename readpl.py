@@ -50,10 +50,16 @@ if not jsonFiles:
     print('No json files found with patterns: ' + ' '.join(sys.argv[1:]))
     exit(0)
 
+import os
+
 for jsonFilePath in jsonFiles:
     flatjson = read_json_as_flat(jsonFilePath)
+    prefix = jsonFilePath + ': '
+    if (len(jsonFiles)==1):
+        if (jsonFiles[0]==sys.argv[1]):
+            prefix = ''
     for line in flatjson:
         try:
-            print(jsonFilePath + ': ' + line)
+            print(prefix + line)
         except BrokenPipeError:
             exit(0)
